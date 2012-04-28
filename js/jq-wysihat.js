@@ -1429,7 +1429,7 @@ WysiHat.Toolbar = function() {
   }
 
   function createButtonElement(toolbar, options) {
-    var button = $('<a class="" href="#"><span>' + options['label'] + '</span></a>');
+    var button = $('<a class="button" href="#"><span>' + options['label'] + '</span></a>');
     button.addClass("button");
 		button.addClass(options['name']);
 		button.addClass(options['cssClass']);
@@ -1447,6 +1447,10 @@ WysiHat.Toolbar = function() {
       builder += optionTemplate.replace('KEY', o.val).replace('VALUE', o.label);
     };
     var select = $('<select>' + builder + '</select>');
+
+    if(options["selected"])
+      select.val(options["selected"]);
+    
     select.addClass(options['cssClass']);
     toolbar.append(select);
     return select;

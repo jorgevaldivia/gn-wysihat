@@ -39,11 +39,16 @@
 }
 
 .container .header .toolbar-container{
-  height:35px;
+  height:27px;
   background-color:whiteSmoke;
   border-top:1px solid #E5E5E5;
   border-bottom:1px solid #E5E5E5;
   padding-left:100px;
+  padding-top: 8px;
+}
+
+.container .header .toolbar-container .button{
+  margin-left: 6px;
 }
 
 .container .editor{

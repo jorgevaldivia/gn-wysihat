@@ -5,28 +5,44 @@
 
   <link rel="stylesheet" href="editor.css" type="text/css" />
 
+  <script type="text/javascript" src="js/wysihat_defaults.js"></script>
   <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
   <script type="text/javascript" src="js/jq-wysihat.js"></script>
 
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function() {
       var editor = WysiHat.Editor.attach($('#content'));
+      editor.fontSelection(DEFAULT_FONT);
+      editor.fontSizeSelection(DEFAULT_FONT_SIZE);
       var toolbar = new WysiHat.Toolbar(editor);
       toolbar.initialize(editor);
     
+      toolbar.addDropdown({label: "Font", name: "font", selected: DEFAULT_FONT,
+        options: AVAILABLE_FONTS,
+        handler: function(editor, selected_font) { return editor.fontSelection(selected_font); } });
+      toolbar.addDropdown({label: "Font Size", name: "font size", selected: DEFAULT_FONT_SIZE,
+        options: AVAILABLE_FONT_SIZES,
+        handler: function(editor, selected_font) { return editor.fontSizeSelection(selected_font); } });
+
       toolbar.addButton({
-        label: "Ordered List",
+        label: "<img src='images/editor_icons/16x16/numbered_list.png' />",
         handler: function(editor) { return editor.toggleOrderedList(); }
       });
 
       toolbar.addButton({
-        label: "Unordered List",
+        label: "<img src='images/editor_icons/16x16/bulleted_list.png' />",
         handler: function(editor) { return editor.toggleUnorderedList(); }
       });
 
-      toolbar.addButton({ label: "Underline" });
-      toolbar.addButton({ name: 'bold', label: "Strong" });
+      toolbar.addButton({ label: "<img src='images/editor_icons/16x16/underline.png' />", name: "underline" });
+      toolbar.addButton({ label: "<img src='images/editor_icons/16x16/bold.png' />", name: "bold" });
 
+      toolbar.addButton({ label: "<img src='images/editor_icons/16x16/increase_indent.png' />", handler: function(editor){ return editor.indentSelection(); } });
+      toolbar.addButton({ label: "<img src='images/editor_icons/16x16/decrease_indent.png' />", handler: function(editor){ return editor.outdentSelection(); } });
+
+      toolbar.addButton({ label: "<img src='images/editor_icons/16x16/align_left.png' />", handler: function(editor){ return editor.alignSelection("left"); } });
+      toolbar.addButton({ label: "<img src='images/editor_icons/16x16/align_center.png' />", handler: function(editor){ return editor.alignSelection("center"); } });
+      toolbar.addButton({ label: "<img src='images/editor_icons/16x16/align_right.png' />", handler: function(editor){ return editor.alignSelection("right"); } });
 
       // Hide our error message if the editor loads fine
       $('#error').hide();
