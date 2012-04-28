@@ -1,0 +1,66 @@
+.editor {
+  clear: both;
+  min-height: 100px;
+  margin: 5px 0;
+  padding: 5px;
+  border: 1px solid #acacac;
+  outline: none;
+  font-family: 'Lucida Grande', verdana, arial, sans-serif;
+  font-size: 12px;
+}
+
+.editor p {
+  margin: 0;
+}
+
+.editor_toolbar .toolbar_button {
+  float: left;
+  margin: 2px 5px;
+}
+
+.editor_toolbar .selected {
+  color: red !important;
+}
+
+#error {
+  font: 18px helvetica, arial, sans-serif;
+  color: red;
+}
+
+// Begin Jorge/Kevin changes
+
+.container{
+
+}
+
+.container .header .header-content{
+  height: 50px;
+  background-color:#fff;
+}
+
+.container .header .toolbar-container{
+  height:35px;
+  background-color:whiteSmoke;
+  border-top:1px solid #E5E5E5;
+  border-bottom:1px solid #E5E5E5;
+  padding-left:100px;
+}
+
+.container .editor{
+  background-color: #E5E5E5;
+  text-align:center;
+  margin:0px;
+}
+
+.container .editor .content-wrapper{
+  width: 66%;
+  margin: 0px auto;
+  text-align: left;
+}
+
+.container .editor #content_editor{
+  width: 100%;
+  background-color:#fff;
+  height: 1000px;
+  text-align: left;
+}
