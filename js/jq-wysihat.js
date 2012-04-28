@@ -1705,7 +1705,11 @@ WysiHat.Toolbar = function() {
   **/
   function createToolbarElement() {
     var toolbar = $('<div class="editor_toolbar"></div>');
-    editor.before(toolbar);
+    // editor.before(toolbar);
+    if($("#toolbar"))
+      $("#toolbar").before(toolbar);
+    else
+      editor.before(toolbar); // this.editor.insert({before: toolbar});
     return toolbar;
   }
 
@@ -1758,6 +1762,25 @@ WysiHat.Toolbar = function() {
 
     var handler = buttonStateHandler(name, options);
     observeStateChanges(button, name, handler);
+  }
+
+  function addDropdown(options, handler) {
+    if (!options['name']) {
+      options['name'] = options['label'].toLowerCase();
+    }
+    var name = options['name'];
+    var select = createDropdownElement(element, options);
+
+    var handler = buttonHandler(name, options);
+    observeDropdownChange(select, handler);
+  }
+
+  function observeDropdownChange(element, handler) {
+    $(element).change(function() {
+      var selectedValue = $(this).val();
+      handler(editor, selectedValue);
+      $(document.activeElement).trigger("selection:change");
+    });
   }
 
   /**
@@ -1897,12 +1920,14 @@ WysiHat.Toolbar = function() {
     createToolbarElement: createToolbarElement,
     addButtonSet:         addButtonSet,
     addButton:            addButton,
+    addDropdown:          addDropdown,
     createButtonElement:  createButtonElement,
     buttonHandler:        buttonHandler,
     observeButtonClick:   observeButtonClick,
     buttonStateHandler:   buttonStateHandler,
     observeStateChanges:  observeStateChanges,
-    updateButtonState:    updateButtonState
+    updateButtonState:    updateButtonState,
+
   };
 };
 
