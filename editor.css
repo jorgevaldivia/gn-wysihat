@@ -54,6 +54,10 @@
   margin-left: 10px;
 }
 
+.container .header .toolbar-container .button.selected{
+  border:1px solid red;
+}
+
 .container .editor{
   background-color: #E5E5E5;
   text-align:center;

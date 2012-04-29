@@ -38,7 +38,8 @@
       });
 
       toolbar.addButton({ label: "<img src='images/editor_icons/16x16/underline.png' />", name: "underline" });
-      toolbar.addButton({ label: "<img src='images/editor_icons/16x16/bold.png' />", name: "bold" });
+      toolbar.addButton({ label: "<img src='images/editor_icons/16x16/bold.png' />", name: "bold",
+        handler: function(editor){ return editor.boldSelection(); } });
 
       toolbar.addButton({ label: "<img src='images/editor_icons/16x16/increase_indent.png' />", handler: function(editor){ return editor.indentSelection(); } });
       toolbar.addButton({ label: "<img src='images/editor_icons/16x16/decrease_indent.png' />", handler: function(editor){ return editor.outdentSelection(); } });
@@ -67,11 +68,7 @@
         });        
       });
 
-      // $('.color-picker').colourPicker({
-      //     // ico: 'images/editor_icons/16x16/select_color_text.png',
-      //     ico: $(this).attr("image"),
-      //     title: false
-      // });
+
     });
 
 

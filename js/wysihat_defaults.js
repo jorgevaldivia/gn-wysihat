@@ -1,8 +1,8 @@
 
 var AVAILABLE_FONTS = [
 	{label: "Arial", val: "arial"}, 
-	{label: "Verdana", val: "verdana"}, 
-	{label: "Times New Roman", val: "Times New Roman"}
+	{label: "Times New Roman", val: "Times New Roman"},
+	{label: "Verdana", val: "verdana"}
 ];
 
 var DEFAULT_FONT = "arial";

@@ -915,6 +915,11 @@ WysiHat.Commands = (function(window) {
     this.execCommand('fontname', false, font);
   }
 
+  function fontSelected(){
+    var node = window.getSelection().getNode();
+    return node.css("font-family");
+  }
+
   /**
    * WysiHat.Commands#fontSizeSelection(fontSize) -> undefined
    * - font size (int) : font size for selection
@@ -923,6 +928,11 @@ WysiHat.Commands = (function(window) {
   **/
   function fontSizeSelection(fontSize) {
     this.execCommand('fontsize', false, fontSize);
+  }
+
+  function fontSizeSelected(){
+    var node = window.getSelection().getNode();
+    return node.attr("size") || DEFAULT_FONT_SIZE;
   }
 
   /**
@@ -1207,7 +1217,13 @@ WysiHat.Commands = (function(window) {
      toggleIndentation:        toggleIndentation,
      indentSelected:           indentSelected,
      fontSelection:            fontSelection,
+
+     fontSelected:             fontSelected,
+     
      fontSizeSelection:        fontSizeSelection,
+
+     fontSizeSelected:             fontSizeSelected,
+
      colorSelection:           colorSelection,
      backgroundColorSelection: backgroundColorSelection,
      alignSelection:           alignSelection,
@@ -1234,7 +1250,10 @@ WysiHat.Commands = (function(window) {
     queryCommands: {
       link:          linkSelected,
       orderedlist:   orderedListSelected,
-      unorderedlist: unorderedListSelected
+      unorderedlist: unorderedListSelected,
+
+      font:          fontSelected,
+      "font size":      fontSizeSelected 
     },
 
     styleSelectors: {
@@ -1776,14 +1795,12 @@ WysiHat.Toolbar = function() {
 
     var handler = buttonHandler(name, options);
     observeDropdownChange(select, handler);
-  }
 
-  function observeDropdownChange(element, handler) {
-    $(element).change(function() {
-      var selectedValue = $(this).val();
-      handler(editor, selectedValue);
-      $(document.activeElement).trigger("selection:change");
-    });
+    // state handler stuff
+    var handler = buttonStateHandler(name, options);
+    // observeDropdownStateChanges(select, name, handler);
+    observeStateChanges(select, name, handler);
+
   }
 
   /**
@@ -1900,9 +1917,27 @@ WysiHat.Toolbar = function() {
       var state = handler(editor);
       if (state != previousState) {
         previousState = state;
-        updateButtonState(element, name, state);
+
+        if($(element).is("select")){
+          updateDropDownState(element, name, state)
+        }
+        else
+          updateButtonState(element, name, state);
       }
     });
+  }
+
+  function observeDropdownChange(element, handler) {
+    $(element).change(function() {
+      var selectedValue = $(this).val();
+      handler(editor, selectedValue);
+      $(document.activeElement).trigger("selection:change");
+    });
+  }
+
+  function updateDropDownState(element, name, state){
+    if(state)
+      $(element).val(state);
   }
 
   /**
