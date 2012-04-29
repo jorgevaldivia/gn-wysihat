@@ -134,8 +134,8 @@ jQuery.fn.colourPicker = function (conf) {
 		id:			'jquery-colour-picker',	// id of colour-picker container
 		ico:		'ico.gif',				// SRC to colour-picker icon
 		title:		'Pick a colour',		// Default dialogue title
-		inputBG:	true,					// Whether to change the input's background to the selected colour's
-		speed:		500,					// Speed of dialogue-animation
+		inputBG:	false,					// Whether to change the input's background to the selected colour's
+		speed:		250,					// Speed of dialogue-animation
 		openTxt:	'Open colour picker'
 	}, conf);
 

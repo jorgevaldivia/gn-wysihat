@@ -73,3 +73,19 @@
   text-align: left;
   /*padding: 50px 100px 50px 100px;*/
 }
+
+.container .editor #content_editor font[size="1"] { font-size: 8pt; }
+.container .editor #content_editor font[size="2"] { font-size: 10pt; }
+.container .editor #content_editor font[size="3"] { font-size: 12pt; }
+.container .editor #content_editor font[size="4"] { font-size: 14pt; }
+.container .editor #content_editor font[size="5"] { font-size: 18pt; }
+.container .editor #content_editor font[size="6"] { font-size: 24pt; }
+.container .editor #content_editor font[size="7"] { font-size: 36pt; }
+/*.container .editor #content_editor font[size="2"] { font-size: 10pt; }​*/
+
+
+
+
+
+
+

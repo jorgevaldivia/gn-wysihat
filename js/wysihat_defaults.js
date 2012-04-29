@@ -2,25 +2,36 @@
 var AVAILABLE_FONTS = [
 	{label: "Arial", val: "arial"}, 
 	{label: "Verdana", val: "verdana"}, 
-	{label: "Times New Roman", val: "Times New Roman"}];
+	{label: "Times New Roman", val: "Times New Roman"}
+];
 
 var DEFAULT_FONT = "arial";
 
+// var AVAILABLE_FONT_SIZES = [
+// 	{label: "8", val: 8},
+// 	{label: "9", val: 9},
+// 	{label: "10", val: 10},
+// 	{label: "11", val: 11},
+// 	{label: "12", val: 12},
+// 	{label: "14", val: 14},
+// 	{label: "18", val: 18},
+// 	{label: "24", val: 24},
+// 	{label: "36", val: 36},
+// 	{label: "48", val: 48},
+// 	{label: "72", val: 72},
+// ];
+
 var AVAILABLE_FONT_SIZES = [
-	{label: "8", val: 8},
-	{label: "9", val: 9},
-	{label: "10", val: 10},
-	{label: "11", val: 11},
-	{label: "12", val: 12},
-	{label: "14", val: 14},
-	{label: "18", val: 18},
-	{label: "24", val: 24},
-	{label: "36", val: 36},
-	{label: "48", val: 48},
-	{label: "72", val: 72},
+	{label: "8", val: 1},
+	{label: "10", val: 2},
+	{label: "12", val: 3},
+	{label: "14", val: 4},
+	{label: "18", val: 5},
+	{label: "24", val: 6},
+	{label: "36", val: 7}
 ];
 
-var DEFAULT_FONT_SIZE = 11;
+var DEFAULT_FONT_SIZE = 3;
 
 var AVAILABLE_COLORS = [
 	{label: "ffffff", val: "ffffff"},
@@ -85,5 +96,5 @@ var AVAILABLE_COLORS = [
 	{label: "013300", val: "013300"},
 	{label: "003532", val: "003532"},
 	{label: "010066", val: "010066"},
-	{label: "340096", val: "340096"},
+	{label: "340096", val: "340096"}
 ];

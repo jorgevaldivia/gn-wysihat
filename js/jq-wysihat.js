@@ -852,7 +852,7 @@ WysiHat.Commands = (function(window) {
   **/
   function indentSelection() {
     // TODO: Should use feature detection
-    if ($.browser.mozilla) {
+    if ($.browser.mozilla && false) {
       var selection, range, node, blockquote;
 
       selection = window.getSelection();
@@ -1228,7 +1228,8 @@ WysiHat.Commands = (function(window) {
      queryCommandState:        queryCommandState,
      getSelectedStyles:        getSelectedStyles,
 
-    commands: {},
+    commands: {
+    },
 
     queryCommands: {
       link:          linkSelected,
