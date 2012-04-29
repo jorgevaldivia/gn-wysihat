@@ -932,7 +932,7 @@ WysiHat.Commands = (function(window) {
    *  Sets the foreground color of the current selection.
   **/
   function colorSelection(color) {
-    this.execCommand('forecolor', false, color);
+    this.execCommand('forecolor', false, "#" + color);
   }
 
   /**
@@ -945,7 +945,7 @@ WysiHat.Commands = (function(window) {
   function backgroundColorSelection(color) {
     if($.browser.mozilla) {
       // TODO: for some reason, hilitecolor isn't working.
-      this.execCommand('hilitecolor', false, color);
+      this.execCommand('hilitecolor', false, "#" + color);
     } else {
       this.execCommand('backcolor', false, color);
     }
