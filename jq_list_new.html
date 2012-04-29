@@ -4,10 +4,12 @@
   <title>WYSIWYG</title>
 
   <link rel="stylesheet" href="editor.css" type="text/css" />
+  <link rel="stylesheet" href="js/jquery.colourPicker/jquery.colourPicker.css" type="text/css" />
 
   <script type="text/javascript" src="js/wysihat_defaults.js"></script>
   <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
   <script type="text/javascript" src="js/jq-wysihat.js"></script>
+  <script type="text/javascript" src="js/jquery.colourPicker/jquery.colourPicker.js"></script>
 
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function() {
@@ -44,8 +46,17 @@
       toolbar.addButton({ label: "<img src='images/editor_icons/16x16/align_center.png' />", handler: function(editor){ return editor.alignSelection("center"); } });
       toolbar.addButton({ label: "<img src='images/editor_icons/16x16/align_right.png' />", handler: function(editor){ return editor.alignSelection("right"); } });
 
+      toolbar.addDropdown({label: "Font Color", name: "font color", class_name: "color-picker",
+        options: AVAILABLE_COLORS,
+        handler: function(editor, selected_color) { return editor.colorSelection(selected_color); } });
+
       // Hide our error message if the editor loads fine
       $('#error').hide();
+
+      $('.color-picker').colourPicker({
+          ico: 'images/editor_icons/16x16/select_color_text.png', 
+          title: false
+      });
     });
 
 

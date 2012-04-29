@@ -47,8 +47,9 @@
   padding-top: 8px;
 }
 
-.container .header .toolbar-container .button{
-  margin-left: 6px;
+.container .header .toolbar-container .button, 
+.container .header .toolbar-container .color-picker-icon{
+  margin-left: 10px;
 }
 
 .container .editor{

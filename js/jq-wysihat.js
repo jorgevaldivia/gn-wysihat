@@ -1817,6 +1817,9 @@ WysiHat.Toolbar = function() {
 
     if(options["selected"])
       select.val(options["selected"]);
+
+    if(options["class_name"])
+      select.addClass(options["class_name"]);
     
     select.addClass(options['cssClass']);
     toolbar.append(select);
