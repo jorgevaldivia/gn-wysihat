@@ -19,7 +19,7 @@
       var toolbar = new WysiHat.Toolbar(editor);
       toolbar.initialize(editor);
     
-      toolbar.addDropdown({label: "Font", name: "font", selected: DEFAULT_FONT,
+      toolbar.addDropdown({label: "Font", name: "font", selected: DEFAULT_FONT, class_name: "font-size-select",
         options: AVAILABLE_FONTS,
         handler: function(editor, selected_font) { return editor.fontSelection(selected_font); } });
       toolbar.addDropdown({label: "Font Size", name: "font size", selected: DEFAULT_FONT_SIZE,
@@ -48,15 +48,29 @@
 
       toolbar.addDropdown({label: "Font Color", name: "font color", class_name: "color-picker",
         options: AVAILABLE_COLORS,
+        image: 'images/editor_icons/16x16/select_color_text.png',
         handler: function(editor, selected_color) { return editor.colorSelection(selected_color); } });
+      toolbar.addDropdown({label: "Background Color", name: "background color", class_name: "color-picker",
+        options: AVAILABLE_COLORS,
+        image: 'images/editor_icons/16x16/background_color.png',
+        handler: function(editor, selected_color) { return editor.backgroundColorSelection(selected_color); } });
 
       // Hide our error message if the editor loads fine
       $('#error').hide();
 
-      $('.color-picker').colourPicker({
-          ico: 'images/editor_icons/16x16/select_color_text.png', 
+      $('.color-picker').each(function(){
+        var picker_image = $(this).attr("image");
+        $(this).colourPicker({
+          ico: picker_image, 
           title: false
+        });        
       });
+
+      // $('.color-picker').colourPicker({
+      //     // ico: 'images/editor_icons/16x16/select_color_text.png',
+      //     ico: $(this).attr("image"),
+      //     title: false
+      // });
     });
 
 

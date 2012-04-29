@@ -48,7 +48,9 @@
 }
 
 .container .header .toolbar-container .button, 
-.container .header .toolbar-container .color-picker-icon{
+.container .header .toolbar-container .color-picker-icon,
+.container .header .toolbar-container select{
+
   margin-left: 10px;
 }
 
@@ -59,7 +61,7 @@
 }
 
 .container .editor .content-wrapper{
-  width: 66%;
+  width: 800px;
   margin: 0px auto;
   text-align: left;
 }
@@ -69,4 +71,5 @@
   background-color:#fff;
   height: 1000px;
   text-align: left;
+  /*padding: 50px 100px 50px 100px;*/
 }

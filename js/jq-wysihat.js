@@ -944,6 +944,7 @@ WysiHat.Commands = (function(window) {
   **/
   function backgroundColorSelection(color) {
     if($.browser.mozilla) {
+      // TODO: for some reason, hilitecolor isn't working.
       this.execCommand('hilitecolor', false, color);
     } else {
       this.execCommand('backcolor', false, color);
@@ -1425,6 +1426,7 @@ $(document).ready(function() {
 
         $(element).trigger("selection:change");
       }
+
     };
 
     doc.mouseup(selectionChangeHandler);
@@ -1820,7 +1822,10 @@ WysiHat.Toolbar = function() {
 
     if(options["class_name"])
       select.addClass(options["class_name"]);
-    
+
+    if(options["image"])
+      select.attr("image", options["image"]);
+
     select.addClass(options['cssClass']);
     toolbar.append(select);
     return select;
