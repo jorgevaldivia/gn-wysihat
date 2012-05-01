@@ -98,3 +98,26 @@ var AVAILABLE_COLORS = [
 	{label: "010066", val: "010066"},
 	{label: "340096", val: "340096"}
 ];
+
+var DEFAULT_COLOR = "000000";
+
+var DEFAULT_BACKGROUND_COLOR = "ffffff";
+
+// Helper Methods
+
+var hexDigits = new Array ("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"); 
+
+//Function to convert hex format to a rgb color
+function rgb2hex(rgb) {
+	var rgb_og = rgb;
+ 	rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+ 	if(rgb)
+		return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+	else
+		return rgb_og;
+}
+
+function hex(x) {
+  return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+ }
+

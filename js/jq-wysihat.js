@@ -945,6 +945,11 @@ WysiHat.Commands = (function(window) {
     this.execCommand('forecolor', false, "#" + color);
   }
 
+  function colorSelected(){
+    var node = window.getSelection().getNode();
+    return rgb2hex(node.css("color")) || DEFAULT_COLOR;
+  }
+
   /**
    *  WysiHat.Commands#backgroundColorSelection(color) -> undefined
    *  - color (string) - a color or hexadecimal value
@@ -959,6 +964,11 @@ WysiHat.Commands = (function(window) {
     } else {
       this.execCommand('backcolor', false, color);
     }
+  }
+
+  function backgroundColorSelected(){
+    var node = window.getSelection().getNode();
+    return rgb2hex(node.css("background-color")) || DEFAULT_BACKGROUND_COLOR;
   }
 
   /**
@@ -1225,7 +1235,11 @@ WysiHat.Commands = (function(window) {
      fontSizeSelected:             fontSizeSelected,
 
      colorSelection:           colorSelection,
+     colorSelected:            colorSelected,
+
      backgroundColorSelection: backgroundColorSelection,
+     backgroundColorSelected:  backgroundColorSelected,
+
      alignSelection:           alignSelection,
      alignSelected:            alignSelected,
      linkSelection:            linkSelection,
@@ -1252,8 +1266,10 @@ WysiHat.Commands = (function(window) {
       orderedlist:   orderedListSelected,
       unorderedlist: unorderedListSelected,
 
-      font:          fontSelected,
-      "font size":      fontSizeSelected 
+      font:               fontSelected,
+      "font size":        fontSizeSelected,
+      "font color":       colorSelected,
+      "background color": backgroundColorSelected 
     },
 
     styleSelectors: {
@@ -1732,6 +1748,9 @@ WysiHat.Toolbar = function() {
       $("#toolbar").before(toolbar);
     else
       editor.before(toolbar); // this.editor.insert({before: toolbar});
+
+    editor.toolbar_element = toolbar;
+
     return toolbar;
   }
 
@@ -1796,9 +1815,8 @@ WysiHat.Toolbar = function() {
     var handler = buttonHandler(name, options);
     observeDropdownChange(select, handler);
 
-    // state handler stuff
+    // custom state handler for drop downs
     var handler = buttonStateHandler(name, options);
-    // observeDropdownStateChanges(select, name, handler);
     observeStateChanges(select, name, handler);
 
   }
@@ -1843,6 +1861,9 @@ WysiHat.Toolbar = function() {
 
     if(options["image"])
       select.attr("image", options["image"]);
+
+    if(options["selector_type"])
+      select.attr("selector_type", options["selector_type"]);
 
     select.addClass(options['cssClass']);
     toolbar.append(select);
@@ -1936,8 +1957,20 @@ WysiHat.Toolbar = function() {
   }
 
   function updateDropDownState(element, name, state){
-    if(state)
-      $(element).val(state);
+    if(state){
+
+      if(name == "font color" || name == "background color"){
+        $(editor.toolbar_element).children(".color-picker-icon").each(function(){
+          
+          if($(this).attr("selector_type") == name){
+            $(this).css( { background: state } );
+          }
+
+        });
+      }
+      else
+        $(element).val(state);
+    }
   }
 
   /**

@@ -44,7 +44,7 @@
   border-top:1px solid #E5E5E5;
   border-bottom:1px solid #E5E5E5;
   padding-left:100px;
-  padding-top: 8px;
+  padding-top: 4px;
 }
 
 .container .header .toolbar-container .button, 
@@ -52,6 +52,12 @@
 .container .header .toolbar-container select{
 
   margin-left: 10px;
+}
+
+.container .header .toolbar-container .color-picker-icon img,
+.container .header .toolbar-container .button img{
+
+  vertical-align: bottom;
 }
 
 .container .header .toolbar-container .button.selected{
@@ -71,11 +77,17 @@
 }
 
 .container .editor #content_editor{
-  width: 100%;
+  width: 800px;
   background-color:#fff;
   height: 1000px;
   text-align: left;
-  /*padding: 50px 100px 50px 100px;*/
+  padding: 2em 4em 2em 4em;
+
+
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;
+   
 }
 
 .container .editor #content_editor font[size="1"] { font-size: 8pt; }

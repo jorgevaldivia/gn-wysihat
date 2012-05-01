@@ -51,9 +51,11 @@
       toolbar.addDropdown({label: "Font Color", name: "font color", class_name: "color-picker",
         options: AVAILABLE_COLORS,
         image: 'images/editor_icons/16x16/select_color_text.png',
+        selector_type: "font color",
         handler: function(editor, selected_color) { return editor.colorSelection(selected_color); } });
       toolbar.addDropdown({label: "Background Color", name: "background color", class_name: "color-picker",
         options: AVAILABLE_COLORS,
+        selector_type: "background color",
         image: 'images/editor_icons/16x16/background_color.png',
         handler: function(editor, selected_color) { return editor.backgroundColorSelection(selected_color); } });
 
@@ -62,9 +64,12 @@
 
       $('.color-picker').each(function(){
         var picker_image = $(this).attr("image");
+        var picker_type = $(this).attr("selector_type");
+
         $(this).colourPicker({
           ico: picker_image, 
-          title: false
+          title: false,
+          selector_type: picker_type
         });        
       });
 
