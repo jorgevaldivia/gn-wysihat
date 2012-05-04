@@ -662,17 +662,136 @@ WysiHat.Editor = {
 
     jQuery.extend($editArea, WysiHat.Commands);
 
+    // jvgn
+    var notesController = new WysiHat.Notes($editArea);
+    notesController.initialize($editArea);
+    $editArea.notes = notesController;
+
     $textarea.hide();
 
     $textarea.closest('form').submit(function() {
       $textarea.val(WysiHat.Formatting.getApplicationMarkupFrom($editArea));
     });
 
+    var content_area = $("<div contenteditable='true'></div>");
+    $editArea.append(content_area);
+    $editArea.contentArea = content_area;
+
     // WysiHat.BrowserFeatures.run()
 
     return $editArea;
-  }
+  },
+
 };
+
+WysiHat.Notes = (function() {
+
+  var editor, notes;
+  var note_section;
+  var is_dirty = false;
+
+  function initialize(ed) {
+    editor = ed;
+    notes = new Array();
+  }
+
+  function add(options){
+
+    var new_note = new WysiHat.Note(editor, options);
+    new_note.initialize(editor, options);
+    notes.push(new_note);
+
+  }
+
+  function createWrapperDiv(){
+    // editor.insertHTML("<div contenteditable='false' style='border:1px solid red;'>blaaah</div>");
+  }
+
+  WysiHat.Note = (function() {
+
+    var editor, is_dirty, section, bookmark, nav_item;
+
+    function initialize(ed, options){
+      editor = ed;
+      is_dirty = false;
+
+      createBookmarkElement(options.id, options.name);
+      createNoteSection(options.id, options.content);
+      createNavItem(options.id, options.name);
+    }
+
+    function save(){
+    }
+
+    function createNoteSection(id, content){
+
+      var wrapper_div = $("<div contenteditable='true' class='note-section'></div>");
+      wrapper_div.attr("id", id + "_content");
+      wrapper_div.html("<div>" + content + "</div>");
+
+      editor.contentArea.append(wrapper_div.attr("outerHTML"));
+
+      section = wrapper_div;
+
+      $("#" + wrapper_div.attr("id")).live('change',function(){
+        alert("change");
+      });
+    }
+
+    function createBookmarkElement(id, name){
+      var wrapper = $("<div class='bookmark-wrapper'></div>");
+      bookmark = $("<div class='bookmark-in-editor' id='" + id + "' contenteditable='false' unselectable='on'></div>");
+      wrapper.append(bookmark);
+
+      bookmark.html(name);
+
+      editor.contentArea.append(wrapper.attr("outerHTML"));
+      editor.contentArea.append("<br />");
+
+      $("#" + id).live('click',function(){
+        $("#" + $(this).attr("id") + "_content").slideToggle("slow");
+      });
+
+      return wrapper;
+    }
+
+    function createNavItem(bookmark_id, bookmark_name){
+      nav_item = $("<a href='#' class='bookmark-nav'></a>");
+      nav_item.html(bookmark_name);
+      nav_item.attr("bookmarkid", bookmark_id);
+      nav_item.attr("id", "bookmark-nav-for-" + bookmark_id);
+
+      var menu = $("#editor-nav-menu");
+      menu.append(nav_item);
+      menu.append("<br/>");
+
+      $("#" + nav_item.attr("id")).live("click", function(){
+        $("html, body").scrollTo( $("#" + nav_item.attr("bookmarkid")), 800, {offset: -10} );
+        return false;
+      });
+
+      return nav_item;
+
+    }
+
+    return{
+      initialize:     initialize,
+      save:           save,
+      createBookmarkElement:    createBookmarkElement,
+      createNoteSection:        createNoteSection,
+      createNavItem:            createNavItem
+    } 
+  });
+
+  return {
+    initialize:               initialize,
+    add:                      add,
+    createWrapperDiv:         createWrapperDiv,
+  };
+  
+});
+
+
 WysiHat.BrowserFeatures = (function() {
   function createTmpIframe(callback) {
     var frame, frameDocument;
@@ -782,6 +901,10 @@ $(document).ready(function() {
 
 WysiHat.Commands = (function(window) {
   
+  function fuck(){
+    alert("fuck");
+  }
+
   /**
    *  WysiHat.Commands#boldSelection() -> undefined
    *
@@ -1172,6 +1295,10 @@ WysiHat.Commands = (function(window) {
       } catch(e) { return null; }
     }
 
+    // var node = window.getSelection().getNode();
+    // console.log("node");
+    // console.log(node);
+
     $(document.activeElement).trigger("field:change");
   }
 
@@ -1216,6 +1343,7 @@ WysiHat.Commands = (function(window) {
 
   return {
      boldSelection:            boldSelection,
+     fuck: fuck,
      boldSelected:             boldSelected,
      underlineSelection:       underlineSelection,
      underlineSelected:        underlineSelected,
@@ -1281,6 +1409,7 @@ WysiHat.Commands = (function(window) {
     }
   };
 })(window);
+
 (function() {
   function cloneWithAllowedAttributes(element, allowedAttributes) {
     var length = allowedAttributes.length, i;
@@ -2055,6 +2184,7 @@ $.fn.wysihat = function(buttons) {
     toolbar.initialize($editor);
     toolbar.addButtonSet(buttons);
     $editor.toolbar = toolbar;
+
     if (result) result.add($editor); else result = $editor;
   });
 
